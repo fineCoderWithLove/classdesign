@@ -1,17 +1,18 @@
 <template>
     <div id="app">
+
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                <el-menu :default-openeds="[]">
+                <el-menu :default-openeds="['1', '2']">
                     <el-submenu index="1">
                         <template slot="title"><i class="el-icon-message"></i>学生管理</template>
-                        <el-menu-item index="1-1">学生成绩管理</el-menu-item>
-                        <el-menu-item index="1-2">学生预警</el-menu-item>
+                        <el-menu-item index="1-1" @click="toStuCore()">学生成绩管理</el-menu-item>
+                        <el-menu-item index="1-2" @click="toStuWarn()">学生预警</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title"><i class="el-icon-menu"></i>数据管理</template>
-                        <el-menu-item index="2-1">学生数据管理</el-menu-item>
-                        <el-menu-item index="2-2">班级数据管理</el-menu-item>
+                        <el-menu-item index="2-1" @click="toStuData()">学生数据管理</el-menu-item>
+                        <el-menu-item index="2-2" @click="toClassData()">班级数据管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="3">
                         <template slot="title"><i class="el-icon-setting"></i>成绩评定</template>
@@ -27,7 +28,8 @@
                 </el-menu>
             </el-aside>
 
-            <el-container>
+            <el-container style="height: 500px; border: 1px solid #eee">
+
                 <el-header style="text-align: right; font-size: 12px">
                     <el-dropdown>
                         <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -41,21 +43,10 @@
                 </el-header>
 
                 <el-main>
-                    <el-table :data="tableData">
-                        <el-table-column prop="name" label="姓名" width="100">
-                        </el-table-column>
-                        <el-table-column prop="class" label="班级" width="100">
-                        </el-table-column>
-                        <el-table-column prop="studentNumber" label="学号">
-                        </el-table-column>
-                        <el-table-column prop="studentNumber" label="操作">
-                            <el-button type="primary" round>修改信息</el-button>
-                            <el-button type="info" round>学生详情</el-button>
-                            <el-button type="danger" round>删除学生</el-button>
-                        </el-table-column>
-                    </el-table>
+                    <router-view></router-view>
                 </el-main>
             </el-container>
+
         </el-container>
     </div>
 </template>
@@ -72,10 +63,26 @@ export default {
             tableData: Array(20).fill(item)
         }
     },
-    created () {
-        this.$axios.get("/ping").then(response => {
-            console.log(response);
-        })
+    created() {
+        //封装请求的demo
+        // this.$axios.get("/ping").then(response => {
+        //     console.log(response);
+        // })
+    },
+    methods: {
+        toStuCore() {
+            console.log("点击到了");
+            this.$router.push('/studendscore')
+        },
+        toStuWarn() {
+            this.$router.push('/studendwarn')
+        },
+        toStuData() {
+            this.$router.push('/StuData')
+        },
+        toClassData() {
+            this.$router.push('/ClassData')
+        }
     }
 };
 </script>

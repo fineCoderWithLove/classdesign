@@ -2,9 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
-const Index = () => import('../views/index.vue')
-const Login = () => import("../views/login.vue")
-const StuDetail = () => import("../views/studentDetails.vue")
+const Index = () => import('../views/index/index.vue')
+const Login = () => import("../views/login/login.vue")
+const StuDetail = () => import("../views/details/studentDetails.vue")
+const StuWarn = () => import("../views/index/studentwarn.vue")
+const StuCore = () => import("../views/index/studentscore.vue")
+const StuData = () => import("../views/index/data/studentdata.vue")
+const ClassData = () => import("../views/index/data/classdata.vue")
 
 Vue.use(VueRouter)
 
@@ -18,13 +22,33 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-        children: []
     },
     {
         path: '/index',
         name: 'index',
         component: Index,
-        children: []
+        children: [
+            {
+                path: '/StuData',
+                component: StuData,
+            },
+            {
+                path: '/ClassData',
+                name: 'ClassData',
+                component: ClassData,
+            },
+            {
+                path: '/studendscore',
+                name: 'studendscore',
+                component: StuCore,
+            },
+            {
+                path: '/studendwarn',
+                name: 'studendwarn',
+                component: StuWarn,
+
+            },
+        ]
     },
     {
         path: '/studetail',
