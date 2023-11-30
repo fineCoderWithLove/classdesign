@@ -33,5 +33,9 @@ export default {
 </script>
   
 <style>
+.el-main {
+    height: calc(100vh-95px);
+    overflow: visible;
+}
 </style>
   

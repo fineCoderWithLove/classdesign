@@ -58,7 +58,7 @@ export default {
         };
         return {
             ruleForm: {
-                username:'',
+                username: '',
                 pass: '',
                 checkPass: '',
                 age: ''
@@ -80,6 +80,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    // 权限管理，管理员3，教师2，学生1
                     this.$router.push('/index')
                 } else {
                     console.log('error submit!!');

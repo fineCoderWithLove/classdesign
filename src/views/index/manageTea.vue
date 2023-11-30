@@ -3,11 +3,11 @@
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-main>
                 <el-table :data="tableData">
-                    <el-table-column prop="name" label="姓名" width="100">
+                    <el-table-column prop="name" label="姓名" width="200">
                     </el-table-column>
-                    <el-table-column prop="class" label="班级" width="100">
+                    <el-table-column prop="class" label="学院" width="200">
                     </el-table-column>
-                    <el-table-column prop="studentNumber" label="学号">
+                    <el-table-column prop="studentNumber" label="工号">
                     </el-table-column>
                     <el-table-column prop="studentNumber" label="操作">
                         <el-button type="primary" @click="dialogFormVisible = true" plain>修改信息</el-button>
@@ -29,10 +29,10 @@
                                 <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
                             </div>
                         </el-dialog>
-                        <el-button type="info" plain>学生详情</el-button>
+                        <el-button type="info" plain>教师详情</el-button>
                         <el-popconfirm confirm-button-text='好的' cancel-button-text='不用了' icon="el-icon-info"
-                            icon-color="red" title="确认删除该学生嘛？">
-                            <el-button slot="reference" type="danger" plain>删除学生</el-button>
+                            icon-color="red" title="确认删除该教师嘛？">
+                            <el-button slot="reference" type="danger" plain>删除教师</el-button>
                         </el-popconfirm>
                     </el-table-column>
                 </el-table>
@@ -49,7 +49,7 @@
 export default {
     data() {
         const item = {
-            name: '郑梓桐',
+            name: '肖海蓉',
             class: '计算机2101',
             studentNumber: '2109124027'
         };
@@ -57,7 +57,7 @@ export default {
             tableData: Array(10).fill(item),
             dialogFormVisible: false,
             form: {
-                name: '郑梓桐',
+                name: '肖海蓉',
                 region: '',
                 class: '计算机2101',
                 studentNumber: '2109124027',

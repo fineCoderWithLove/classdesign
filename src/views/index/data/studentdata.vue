@@ -79,14 +79,19 @@ export default {
 <style scoped>
 #container {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh-95px);
     padding-top: 100px;
 
     #newCharts {
         margin: 0 auto;
-        width: 800px;
-        height: 800px;
+        width: 300px;
+        height: 300px;
     }
+}
+
+.el-main {
+
+    overflow: visible;
 }
 </style>
 

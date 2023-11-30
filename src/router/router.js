@@ -9,12 +9,15 @@ const StuWarn = () => import("../views/index/studentwarn.vue")
 const StuCore = () => import("../views/index/studentscore.vue")
 const StuData = () => import("../views/index/data/studentdata.vue")
 const ClassData = () => import("../views/index/data/classdata.vue")
+const Personal = () => import("../views/personal/personal.vue")
+const PersonalGrade = () => import("../views/personal/personalgrade.vue")
+const ManageTea = () => import("../views/index/manageTea.vue")
 
 Vue.use(VueRouter)
 
 const routes = [
     // 默认首页显示
-    {
+    {   
         path: '/',
         redirect: '/Login'
     },
@@ -29,7 +32,23 @@ const routes = [
         component: Index,
         children: [
             {
+                path: '/ManageTea',
+                name: 'ManageTea',
+                component: ManageTea,
+            },
+            {
+                path: '/personal',
+                name: 'personal',
+                component: Personal,
+            },
+            {
+                path: '/personalgrade',
+                name: 'personalgrade',
+                component: PersonalGrade,
+            },
+            {
                 path: '/StuData',
+                name: 'StuData',
                 component: StuData,
             },
             {
