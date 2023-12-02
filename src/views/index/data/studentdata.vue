@@ -2,28 +2,88 @@
     <div id="container">
         <!--图表容器-->
         <div id="newCharts"></div>
+        <div id="main"></div>
+        <EcharsCircle :FatherData="FatherData"></EcharsCircle>
     </div>
 </template>
   
 <script>
 import * as echarts from 'echarts';
+import EcharsCircle from '../../../components/EcharsCircle.vue'
 export default {
 
     name: "example",
     data() {
         return {
             formatter: '￥{value}',
+            FatherData: {
+                excellent: 10,
+                pass: 12,
+                fail: 32,
+                good: 11
+            }
         }
     },
+    components: {
+        EcharsCircle
+    },
     mounted() {
-        this.showCharts();
+        this.showCharts1();
+        this.showCharts2();
     },
     methods: {
+        showCharts2() {
+            var chartDom = document.getElementById('main');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            option = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    left: 'center'
+                },
+                series: [
+                    {
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 40,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [
+                            { value: 735, name: '优秀' },
+                            { value: 580, name: '及格' },
+                            { value: 484, name: '不及格' },
+                            { value: 300, name: '良好' }
+                        ]
+                    }
+                ]
+            };
+            option && myChart.setOption(option);
+        },
         // 展示折线图
-        showCharts() {
+        showCharts1() {
             // 基于准备好的dom，初始化echarts实例
             let myChart = echarts.init(document.getElementById('newCharts'));//也可以通过$refs.newCharts的方式去获取到dom实例。
-            console.log(myChart);
             // 绘制图表
             myChart.setOption({
                 title: { text: '在vue中使用echarts绘制图表' },//图标的标题
@@ -81,12 +141,21 @@ export default {
     width: 100%;
     height: calc(100vh-95px);
     padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
-    #newCharts {
-        margin: 0 auto;
-        width: 300px;
-        height: 300px;
-    }
+#newCharts {
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+}
+
+#main {
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
 }
 
 .el-main {
