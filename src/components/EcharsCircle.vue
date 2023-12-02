@@ -3,6 +3,7 @@
 </template>
   
 <script>
+// 扇形图组件，用于展示班级及格的学生的比例
 import * as echarts from 'echarts';
 export default {
     name: "EcharsCircle",
@@ -11,24 +12,6 @@ export default {
             formatter: '￥{value}',
         }
     },
-    // props: {
-    //     excellent: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     pass: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     fail: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     good: {
-    //         type: String,
-    //         required: true
-    //     }
-    // },
     props: {
         FatherData: {
             type: String,

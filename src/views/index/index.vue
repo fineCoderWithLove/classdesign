@@ -25,7 +25,7 @@
                         <el-menu-item index="4-1" @click="toManagerTeacher()"><i class="el-icon-s-custom"></i>教师管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="5">
-                        <template slot="title"><i class="el-icon-setting"></i>个人管理</template>
+                        <template slot="title"><i class="el-icon-setting"></i>个人信息</template>
                         <el-menu-item index="5-1" @click="toPersonalDetail()"><i
                                 class="el-icon-s-custom"></i>个人信息</el-menu-item>
                         <el-menu-item index="5-2" @click="toPersonalGrade()"><i
