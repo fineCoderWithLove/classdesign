@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-      <!-- 就是要更换路由的界面 -->
-      <router-view></router-view>
+    <!-- 就是要更换路由的界面 -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -16,21 +16,26 @@ export default {
 
     }
   },
-  created () {
+  created() {
     console.log(this.$router);
   },
   methods: {
-    toStudentDetails(){
+    toStudentDetails() {
       this.$router.push("/studetail")
     },
-    toIndex(){
+    toIndex() {
       this.$router.push("/index")
     },
-    toLogin(){
+    toLogin() {
       this.$router.push("/login")
     },
   }
 }
 </script>
 
-<style></style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
