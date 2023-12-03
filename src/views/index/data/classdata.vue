@@ -1,11 +1,11 @@
 <template>
     <div id="app">
-        我是班级的数据页面
+        <EcharsBarBgc style="height: 800px; width:100%;"></EcharsBarBgc>
     </div>
 </template>
   
 <script>
-
+import EcharsBarBgc from '../../../components/EcharsBarBgc.vue'
 export default {
     name: 'App',
     components: {
@@ -15,19 +15,13 @@ export default {
 
         }
     },
+    components: {
+        EcharsBarBgc
+    },
     created() {
         console.log(this.$router);
     },
     methods: {
-        toStudentDetails() {
-            this.$router.push("/studetail")
-        },
-        toIndex() {
-            this.$router.push("/index")
-        },
-        toLogin() {
-            this.$router.push("/login")
-        },
     }
 }
 </script>

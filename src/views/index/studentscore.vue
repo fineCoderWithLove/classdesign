@@ -1,5 +1,32 @@
 <template>
     <div id="app">
+        <div class="butons"> 
+            <el-button type="success" plain style="width: 150px;height:45px;"
+                @click="dialogFormVisible = true">添加学生</el-button>
+                <el-button type="warning" plain style="width: 150px;height:45px;"
+                @click="dialogFormVisible = true">导出学生</el-button>
+                <el-button type="info" plain style="width: 150px;height:45px;"
+                @click="dialogFormVisible = true">导入学生</el-button>
+            <!-- Form -->
+            <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
+                <el-form :model="form">
+                    <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
+                        <el-input v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
+                        <el-input v-model="form.studentNumber" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
+                        <el-input v-model="form.class" autocomplete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                </div>
+            </el-dialog>
+        </div>
+
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-main>
                 <el-table :data="tableData">

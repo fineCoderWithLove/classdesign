@@ -2,7 +2,7 @@
     <div id="app">
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                <el-menu :default-openeds="['1', '2','3','4','5']">
+                <el-menu :default-openeds="['1', '2', '3', '4', '5']">
                     <el-submenu index="1">
                         <template slot="title"><i class="el-icon-user"></i>学生管理</template>
                         <el-menu-item index="1-1" @click="toStuCore()"><i class="el-icon-tickets"></i>学生成绩管理</el-menu-item>
@@ -15,14 +15,15 @@
                         <el-menu-item index="2-2" @click="toClassData()"><i class="el-icon-s-data"></i>班级数据管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="3">
-                        <template slot="title"><i class="el-icon-setting"></i>班级管理</template>
-                        <el-menu-item index="3-1"><i class="el-icon-platform-eleme"></i>计算机2101</el-menu-item>
-                        <el-menu-item index="3-2"><i class="el-icon-platform-eleme"></i>计算机2102</el-menu-item>
-                        <el-menu-item index="3-3"><i class="el-icon-platform-eleme"></i>计算机2103</el-menu-item>
+                        <template slot="title"><i class="el-icon-setting"></i>课程管理</template>
+                        <el-menu-item index="3-1"><i class="el-icon-platform-eleme"></i>数据结构</el-menu-item>
+                        <el-menu-item index="3-2"><i class="el-icon-platform-eleme"></i>操作系统</el-menu-item>
+                        <el-menu-item index="3-3"><i class="el-icon-platform-eleme"></i>计算机网络</el-menu-item>
                     </el-submenu>
                     <el-submenu index="4">
                         <template slot="title"><i class="el-icon-setting"></i>教师管理</template>
-                        <el-menu-item index="4-1" @click="toManagerTeacher()"><i class="el-icon-s-custom"></i>教师管理</el-menu-item>
+                        <el-menu-item index="4-1" @click="toManagerTeacher()"><i
+                                class="el-icon-s-custom"></i>教师管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="5">
                         <template slot="title"><i class="el-icon-setting"></i>个人信息</template>
@@ -46,28 +47,6 @@
                                 <span class="addr">{{ item.address }}</span>
                             </template>
                         </el-autocomplete>
-                    </el-col>
-                    <el-col :span="10">
-                        <el-button type="success" plain style="width: 150px;height:45px;"
-                            @click="dialogFormVisible = true">添加学生</el-button>
-                        <!-- Form -->
-                        <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
-                            <el-form :model="form">
-                                <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
-                                    <el-input v-model="form.name" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
-                                    <el-input v-model="form.studentNumber" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
-                                    <el-input v-model="form.class" autocomplete="off"></el-input>
-                                </el-form-item>
-                            </el-form>
-                            <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                            </div>
-                        </el-dialog>
                     </el-col>
                     <el-dropdown>
                         <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -268,5 +247,6 @@ export default {
 .el-main {
     height: calc(100vh-95px);
     overflow: visible;
-}</style>
+}
+</style>
   

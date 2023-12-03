@@ -5,7 +5,7 @@
                 <el-table :data="tableData">
                     <el-table-column prop="name" label="课程编号" width="160">
                     </el-table-column>
-                    <el-table-column prop="class" label="课程名称" width="160">
+                    <el-table-column prop="class" label="授课教师" width="160">
                     </el-table-column>
                     <el-table-column prop="studentNumber" label="成绩" width="160">
                     </el-table-column>
@@ -32,7 +32,7 @@ export default {
     data() {
         const item = {
             name: '1',
-            class: '数据结构',
+            class: '曹阳',
             studentNumber: '93',
             classType:"通识选修课",
             normalScore:"93",
