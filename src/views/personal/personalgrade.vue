@@ -1,21 +1,39 @@
+<!-- 这是一个个人的评分信息，有自己所有的选课信息 -->
 <template>
     <div id="app">
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-main>
                 <el-table :data="tableData">
-                    <el-table-column prop="name" label="课程编号" width="160">
+                    <el-table-column prop="name" label="课程编号" width="170">
                     </el-table-column>
-                    <el-table-column prop="class" label="授课教师" width="160">
+                    <el-table-column prop="course_name" label="课程名称" width="170">
                     </el-table-column>
-                    <el-table-column prop="studentNumber" label="成绩" width="160">
+                    <el-table-column prop="class" label="学生姓名" width="170">
                     </el-table-column>
-                    <el-table-column prop="classType" label="课程类别" width="160">
+                    <el-table-column prop="studentNumber" label="成绩" width="170">
                     </el-table-column>
-                    <el-table-column prop="normalScore" label="平时成绩" width="160">
+                    <el-table-column prop="classType" label="课程类别" width="170">
                     </el-table-column>
-                    <el-table-column prop="TestScore" label="卷面成绩"   width="160">
-                    </el-table-column>
-                    <el-table-column prop="total" label="总评" >
+                    <el-table-column prop="classType" label="评分" width="170">
+                        <el-button type="primary" plain @click="dialogFormVisibleBlock = true">评分详情</el-button>
+                        <el-dialog title="评分详情" :visible.sync="dialogFormVisibleBlock" append-to-body>
+                            <el-form :model="form">
+                                <el-form-item class="form-info" label="平时成绩" :label-width="formLabelWidth">
+                                    <el-input :disabled="true" v-model="form.course_normal" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item class="form-info" label="考试成绩" :label-width="formLabelWidth">
+                                    <el-input :disabled="true" v-model="form.course_test" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item class="form-info" label="总评" :label-width="formLabelWidth">
+                                    <el-input :disabled="true" v-model="form.course_test * 0.4 + form.course_normal * 0.6"
+                                        autocomplete="off"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisibleBlock = false">取 消</el-button>
+                                <el-button type="primary" @click="dialogFormVisibleBlock = false">确 定</el-button>
+                            </div>
+                        </el-dialog>
                     </el-table-column>
                 </el-table>
                 <div class="block">
@@ -32,34 +50,30 @@ export default {
     data() {
         const item = {
             name: '1',
+            course_name: '软件工程',
             class: '曹阳',
             studentNumber: '93',
-            classType:"通识选修课",
-            normalScore:"93",
-            TestScore:"20",
-            total:"99"
+            classType: "通识选修课",
+            normalScore: "93",
+            TestScore: "20",
+            total: "99"
         };
         return {
             tableData: Array(10).fill(item),
-            dialogFormVisible: false,
+            dialogFormVisibleBlock: false,
             form: {
-                name: '郑梓桐',
-                region: '',
-                class: '计算机2101',
-                studentNumber: '2109124027',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+                course_normal: 60,
+                course_test: 90,
+                course_total_score: 0,
             },
             formLabelWidth: '120px'
         }
     },
+    computed: {
+
+    },
     created() {
-        //封装请求的demo
-        // this.$axios.get("/ping").then(response => {
-        //     console.log(response);
-        // })
+        this.form.course_total_score = this.form.course_normal * 0.6 + this.form.course_test * 0.4
     },
     methods: {
         toStuCore() {
@@ -69,7 +83,7 @@ export default {
     }
 };
 </script>
-  
+    
 <style>
 .block {
     display: flex;

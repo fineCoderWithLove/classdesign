@@ -1,23 +1,32 @@
 <template>
     <div id="app">
-        <div class="butons"> 
+        <div class="butons">
             <el-button type="success" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisible = true">添加教师</el-button>
-                <el-button type="warning" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisible = true">导出教师</el-button>
-                <el-button type="info" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisible = true">导入教师</el-button>
+                @click="dialogFormVisibleInsert = true">添加教师</el-button>
+            <el-button type="warning" plain style="width: 150px;height:45px;"
+                @click="dialogFormVisibleInsert = true">导出教师</el-button>
+            <el-button type="info" plain style="width: 150px;height:45px;"
+                @click="dialogFormVisibleInsert = true">导入教师</el-button>
             <!-- Form -->
-            <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
-                <el-form :model="form">
-                    <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
-                        <el-input v-model="form.user_name" autocomplete="off"></el-input>
+            <el-dialog title="学生详情" :visible.sync="dialogFormVisibleInsert" append-to-body>
+                <el-form :model="formEmpty">
+                    <el-form-item label="教师姓名" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.user_name" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
-                        <el-input v-model="form.number" autocomplete="off"></el-input>
+                    <el-form-item label="教师工号" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.number" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
-                        <el-input v-model="form.class" autocomplete="off"></el-input>
+                    <el-form-item label="教师性别" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.gender" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师电话" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.tel" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师邮箱" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.email" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师学院" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.from" autocomplete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -91,14 +100,26 @@ export default {
         return {
             tableData: Array(9).fill(item),
             dialogFormVisible: false,
+            dialogFormVisibleInsert: false,
             form: {
                 user_name: '肖海蓉',
                 from: '数学与计算机科学学院',
                 number: '2109124027',
-                gender:'女',
-                email:'email-1123123',
-                tel:'12345678910',
+                gender: '女',
+                email: 'email-1123123',
+                tel: '12345678910',
                 delivery: false,
+                type: [],
+                resource: '',
+                desc: ''
+            },
+            formEmpty: {
+                user_name: '',
+                from: '',
+                number: '',
+                gender: '',
+                email: '',
+                tel: '',
                 type: [],
                 resource: '',
                 desc: ''

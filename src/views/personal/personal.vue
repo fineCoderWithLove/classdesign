@@ -11,13 +11,13 @@
               <userAvatar />
             </div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户工作单位 <span>陕西理工大学</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户姓名 <span>郑梓桐</span></div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户工作单位 <span>陕西理工大学</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>学号/工号 <span>2109124027</span></div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户工作单位 <span>陕西理工大学</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>学院/班级 <span>计算机2101</span></div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户工作单位 <span>陕西理工大学</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>单位 <span>陕西理工大学</span></div>
             <el-divider></el-divider>
           </div>
         </el-card>

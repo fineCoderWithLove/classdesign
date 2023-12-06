@@ -16,7 +16,8 @@
                     </el-submenu>
                     <el-submenu index="3">
                         <template slot="title"><i class="el-icon-setting"></i>课程管理</template>
-                        <el-menu-item index="3-1" @click="toClassDetails()"><i class="el-icon-platform-eleme" ></i>数据结构</el-menu-item>
+                        <el-menu-item index="3-1" @click="toClassDetails()"><i
+                                class="el-icon-platform-eleme"></i>数据结构</el-menu-item>
                         <el-menu-item index="3-2"><i class="el-icon-platform-eleme"></i>操作系统</el-menu-item>
                         <el-menu-item index="3-3"><i class="el-icon-platform-eleme"></i>计算机网络</el-menu-item>
                     </el-submenu>
@@ -91,7 +92,7 @@ export default {
         // })
     },
     methods: {
-        toClassDetails(){
+        toClassDetails() {
             this.$router.push('/Course')
         },
         toManagerTeacher() {
@@ -176,6 +177,40 @@ export default {
 .el-main {
     height: calc(100vh-95px);
     overflow: visible;
+}
+
+.el-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.el-col {
+    border-radius: 4px;
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
 }
 </style>
   

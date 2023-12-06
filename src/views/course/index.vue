@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="container">
-        <div style="width:200px"> <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree></div>
+        <div style="width:200px"> <el-tree highlight-current="true" :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree></div>
         <div>
             <el-main>
                 <router-view>

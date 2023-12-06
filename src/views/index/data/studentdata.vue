@@ -1,5 +1,23 @@
 <template>
     <div>
+        <div class="top-info">
+            <div class="little-container">
+                <div>老师数量</div>
+                <div>36</div>
+            </div>
+            <div class="little-container">
+                <div>学生数量</div>
+                <div>233</div>
+            </div>
+            <div class="little-container">
+                <div>课程数量</div>
+                <div>39</div>
+            </div>
+            <div class="little-container">
+                <div>学生优秀率</div>
+                <div>9.7%</div>
+            </div>
+        </div>
         <div id="container">
             <!--图表容器-->
             <div id="newCharts"></div>
@@ -93,6 +111,49 @@ export default {
 
   
 <style scoped>
+
+
+.top-info {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.little-container {
+    width: 230px;
+    height: 125px;
+    background: linear-gradient(to bottom right, #e6f7ff, #f0e6ff);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.little-container:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.little-container:nth-child(1) {
+    background: linear-gradient(to bottom right, #ffe6e6, #f7e6ff);
+}
+
+.little-container:nth-child(2) {
+    background: linear-gradient(to bottom right, #e6f7ff, #e6ffe6);
+}
+
+.little-container:nth-child(3) {
+    background: linear-gradient(to bottom right, #f2e6ff, #f7ffff);
+}
+
+.little-container:nth-child(4) {
+    background: linear-gradient(to bottom right, #e6e6ff, #e6fff7);
+}
 #container {
     width: 100%;
     height: calc(100vh-95px);
@@ -118,6 +179,38 @@ export default {
 
     overflow: visible;
 }
-</style>
+
+.el-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.el-col {
+    border-radius: 4px;
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    background-color: #f9fafc;
+}</style>
 
   
