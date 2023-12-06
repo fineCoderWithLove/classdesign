@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="6" :xs="24">
-        <el-card class="box-card">
+        <el-card class="box-card" style="margin-left:20px;">
           <div slot="header" class="clearfix">
             <span>个人信息</span>
           </div>
@@ -72,6 +72,10 @@ export default {
 };
 </script>
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
 .box-card {
   height: 575px;
 }
@@ -80,5 +84,8 @@ export default {
 }
 .info-cord:hover {  
   box-shadow: 0px 0px 10px 5px rgba(177, 176, 176, 0.5); /* 鼠标悬停时添加阴影 */  
+}
+.info-cord {
+  width: 820px;
 }
 </style>

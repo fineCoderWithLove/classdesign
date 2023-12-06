@@ -11,10 +11,10 @@
             <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
                 <el-form :model="form">
                     <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off"></el-input>
+                        <el-input v-model="form.user_name" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
-                        <el-input v-model="form.studentNumber" autocomplete="off"></el-input>
+                        <el-input v-model="form.number" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
                         <el-input v-model="form.class" autocomplete="off"></el-input>
@@ -38,16 +38,25 @@
                     <el-table-column prop="studentNumber" label="操作">
                         <el-button type="primary" @click="dialogFormVisible = true" plain>修改信息</el-button>
                         <!-- Form -->
-                        <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
+                        <el-dialog title="教师详情" :visible.sync="dialogFormVisible" append-to-body>
                             <el-form :model="form">
-                                <el-form-item label="学生姓名" :label-width="formLabelWidth">
-                                    <el-input v-model="form.name" :disabled="true" autocomplete="off"></el-input>
+                                <el-form-item label="教师姓名" :label-width="formLabelWidth">
+                                    <el-input v-model="form.user_name" :disabled="true" autocomplete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="学生学号" :label-width="formLabelWidth">
-                                    <el-input v-model="form.studentNumber" :disabled="true" autocomplete="off"></el-input>
+                                <el-form-item label="教师工号" :label-width="formLabelWidth">
+                                    <el-input v-model="form.number" :disabled="true" autocomplete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="学生班级" :label-width="formLabelWidth">
-                                    <el-input v-model="form.class" autocomplete="off"></el-input>
+                                <el-form-item label="教师性别" :label-width="formLabelWidth">
+                                    <el-input v-model="form.gender" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="教师电话" :label-width="formLabelWidth">
+                                    <el-input v-model="form.tel" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="教师邮箱" :label-width="formLabelWidth">
+                                    <el-input v-model="form.email" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="教师学院" :label-width="formLabelWidth">
+                                    <el-input v-model="form.from" autocomplete="off"></el-input>
                                 </el-form-item>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
@@ -80,13 +89,15 @@ export default {
             studentNumber: '2109124027'
         };
         return {
-            tableData: Array(10).fill(item),
+            tableData: Array(9).fill(item),
             dialogFormVisible: false,
             form: {
-                name: '肖海蓉',
-                region: '',
-                class: '计算机2101',
-                studentNumber: '2109124027',
+                user_name: '肖海蓉',
+                from: '数学与计算机科学学院',
+                number: '2109124027',
+                gender:'女',
+                email:'email-1123123',
+                tel:'12345678910',
                 delivery: false,
                 type: [],
                 resource: '',
