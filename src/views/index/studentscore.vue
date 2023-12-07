@@ -16,34 +16,34 @@
                     <div class="name">{{ item.value }}</div>
                     <span class="addr">{{ item.address }}</span>
                 </template>
-            </el-autocomplete>
-            <!-- Form 此处的form应该是新的空白的表单-->
-            <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
-                <el-form :model="formEmpty">
-                    <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.user_name" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.number" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.from" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item class="form-info" label="学生性别" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.gender" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item class="form-info" label="学生电话" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.tel" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item class="form-info" label="学生邮箱" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.email" autocomplete="off"></el-input>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                </div>
-            </el-dialog>
+                </el-autocomplete>
+                <!-- Form 此处的form应该是新的空白的表单-->
+                <el-dialog title="学生详情" :visible.sync="dialogFormVisible" append-to-body>
+                    <el-form :model="formEmpty">
+                        <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.user_name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.number" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.from" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="学生性别" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.gender" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="学生电话" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.tel" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="学生邮箱" :label-width="formLabelWidth">
+                            <el-input v-model="formEmpty.email" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    </div>
+                </el-dialog>
         </div>
 
         <el-container style="height: 500px; border: 1px solid #eee">
@@ -84,10 +84,10 @@
                                 <el-button type="primary" @click="dialogFormVisibleUpdate = false">确 定</el-button>
                             </div>
                         </el-dialog>
-                        <el-button type="info" plain @click="dialogFormVisibleBlock = true" >学生详情</el-button>
+                        <el-button type="info" plain @click="dialogFormVisibleBlock = true">学生详情</el-button>
                         <el-dialog title="学生详情" :visible.sync="dialogFormVisibleBlock" append-to-body>
                             <el-form :model="form">
-                                <el-form-item  class="form-info" label="学生姓名" :label-width="formLabelWidth">
+                                <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
                                     <el-input :disabled="true" v-model="form.user_name" autocomplete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
@@ -139,27 +139,27 @@ export default {
             state: '',
             tableData: Array(9).fill(item),
             dialogFormVisible: false,
-            dialogFormVisibleUpdate:false,
-            dialogFormVisibleBlock:false,
+            dialogFormVisibleUpdate: false,
+            dialogFormVisibleBlock: false,
             form: {
                 user_name: '郑梓桐',
                 from: '计算机2101',
                 number: '2109124027',
-                gender:'男',
-                email:'3151128964@qq.com',
-                tel:'15220267226',
+                gender: '男',
+                email: '3151128964@qq.com',
+                tel: '15220267226',
                 delivery: false,
                 type: [],
                 resource: '',
                 desc: ''
             },
-            formEmpty:{
+            formEmpty: {
                 user_name: '',
                 from: '',
                 number: '',
-                gender:'',
-                email:'',
-                tel:'',
+                gender: '',
+                email: '',
+                tel: '',
                 delivery: "",
                 type: [],
                 resource: '',
@@ -309,31 +309,38 @@ export default {
     height: calc(100vh-120px);
     overflow: visible;
 }
+
 .el-row {
     margin-bottom: 20px;
+
     &:last-child {
-      margin-bottom: 0;
+        margin-bottom: 0;
     }
-  }
-  .el-col {
+}
+
+.el-col {
     border-radius: 4px;
-  }
-  .bg-purple-dark {
+}
+
+.bg-purple-dark {
     background: #99a9bf;
-  }
-  .bg-purple {
+}
+
+.bg-purple {
     background: #d3dce6;
-  }
-  .bg-purple-light {
+}
+
+.bg-purple-light {
     background: #e5e9f2;
-  }
-  .grid-content {
+}
+
+.grid-content {
     border-radius: 4px;
     min-height: 36px;
-  }
-  .row-bg {
+}
+
+.row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
-  }
-</style>
+}</style>
   
