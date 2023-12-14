@@ -90,8 +90,20 @@ export default {
         // this.$axios.get("/ping").then(response => {
         //     console.log(response);
         // })
+        var storedUserId = localStorage.getItem("userId");
+
+        // 使用获取到的用户ID进行操作  
+        console.log("User ID from cache:", storedUserId);
+            this.open1()
     },
     methods: {
+        open1() {
+            this.$notify({
+                title: '成功',
+                message: '登录成功',
+                type: 'success'
+            });
+        }, 
         toClassDetails() {
             this.$router.push('/Course')
         },

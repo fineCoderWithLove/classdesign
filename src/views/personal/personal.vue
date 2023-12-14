@@ -76,16 +76,21 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .box-card {
   height: 575px;
 }
-.box-card:hover {  
-  box-shadow: 0px 0px 10px 5px rgba(177, 176, 176, 0.5); /* 鼠标悬停时添加阴影 */  
+
+.box-card:hover {
+  box-shadow: 0px 0px 10px 5px rgba(177, 176, 176, 0.5);
+  /* 鼠标悬停时添加阴影 */
 }
-.info-cord:hover {  
-  box-shadow: 0px 0px 10px 5px rgba(177, 176, 176, 0.5); /* 鼠标悬停时添加阴影 */  
+
+.info-cord:hover {
+  box-shadow: 0px 0px 10px 5px rgba(177, 176, 176, 0.5);
+  /* 鼠标悬停时添加阴影 */
 }
+
 .info-cord {
   width: 820px;
-}
-</style>
+}</style>
