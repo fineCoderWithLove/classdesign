@@ -2,11 +2,11 @@
     <div id="app">
         <div class="butons">
             <el-button type="success" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisibleInsert = true">添加教师</el-button>
+                @click="dialogFormVisible = true">添加老师</el-button>
             <el-button type="warning" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisibleInsert = true">导出教师</el-button>
+                @click="dialogFormVisible = true">导出老师</el-button>
             <el-button type="info" plain style="width: 150px;height:45px;"
-                @click="dialogFormVisibleInsert = true">导入教师</el-button>
+                @click="dialogFormVisible = true">导入老师</el-button>
             <el-autocomplete style="width: 250px;" popper-class="my-autocomplete" v-model="state"
                 :fetch-suggestions="querySearch" placeholder="请输入内容" @select="handleSelect">
                 <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
@@ -16,79 +16,106 @@
                     <span class="addr">{{ item.address }}</span>
                 </template>
             </el-autocomplete>
-            <!-- Form -->
-            <el-dialog title="学生详情" :visible.sync="dialogFormVisibleInsert" append-to-body>
+            <!-- Form 此处的form应该是新的空白的表单-->
+            <el-dialog title="教师详情" :visible.sync="dialogFormVisible" append-to-body>
                 <el-form :model="formEmpty">
-                    <el-form-item label="教师姓名" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.user_name" autocomplete="off"></el-input>
+                    <el-form-item class="form-info" label="教师姓名" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.person.user_name" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师工号" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.number" autocomplete="off"></el-input>
+                    <el-form-item class="form-info" label="教师班级" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.person.from_where" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师性别" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.gender" autocomplete="off"></el-input>
+                    <el-form-item class="form-info" label="教师性别" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.person.gender" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师电话" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.tel" autocomplete="off"></el-input>
+                    <el-form-item class="form-info" label="教师电话" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.person.tel" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师邮箱" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.email" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="教师学院" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.from" autocomplete="off"></el-input>
+                    <el-form-item class="form-info" label="教师邮箱" :label-width="formLabelWidth">
+                        <el-input v-model="formEmpty.person.email" autocomplete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="InsertStu()">确 定</el-button>
                 </div>
             </el-dialog>
         </div>
+
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-main>
                 <el-table :data="tableData">
-                    <el-table-column prop="name" label="姓名" width="200">
+                    <el-table-column prop="user_name" label="姓名" width="100">
                     </el-table-column>
-                    <el-table-column prop="class" label="学院" width="200">
+                    <el-table-column prop="from_where" label="班级" width="100">
                     </el-table-column>
-                    <el-table-column prop="studentNumber" label="工号">
+                    <el-table-column prop="number" label="学号">
                     </el-table-column>
                     <el-table-column prop="studentNumber" label="操作">
-                        <el-button type="primary" @click="dialogFormVisible = true" plain>修改信息</el-button>
-                        <!-- Form -->
-                        <el-dialog title="教师详情" :visible.sync="dialogFormVisible" append-to-body>
-                            <el-form :model="form">
-                                <el-form-item label="教师姓名" :label-width="formLabelWidth">
-                                    <el-input v-model="form.user_name" :disabled="true" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="教师工号" :label-width="formLabelWidth">
-                                    <el-input v-model="form.number" :disabled="true" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="教师性别" :label-width="formLabelWidth">
-                                    <el-input v-model="form.gender" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="教师电话" :label-width="formLabelWidth">
-                                    <el-input v-model="form.tel" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="教师邮箱" :label-width="formLabelWidth">
-                                    <el-input v-model="form.email" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="教师学院" :label-width="formLabelWidth">
-                                    <el-input v-model="form.from" autocomplete="off"></el-input>
-                                </el-form-item>
-                            </el-form>
-                            <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                            </div>
-                        </el-dialog>
-                        <el-button type="info" plain>教师详情</el-button>
-                        <el-popconfirm confirm-button-text='好的' cancel-button-text='不用了' icon="el-icon-info"
-                            icon-color="red" title="确认删除该教师嘛？">
-                            <el-button slot="reference" type="danger" plain>删除教师</el-button>
-                        </el-popconfirm>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="demo(scope.row)" plain>修改信息</el-button>
+                            <el-button type="info" plain @click="demo2(scope.row)">教师详情</el-button>
+                            <el-popconfirm confirm-button-text='好的' cancel-button-text='不用了' icon="el-icon-info"
+                                icon-color="red" title="确认删除该学生嘛？">
+                                <el-button slot="reference" type="danger" plain>删除教师</el-button>
+                            </el-popconfirm>
+                        </template>
                     </el-table-column>
                 </el-table>
+
+                <!-- Form -->
+                <el-dialog title="教师详情" :visible.sync="form_demo.isshow" append-to-body>
+                    <el-form :model="form_demo">
+                        <el-form-item class="form-info" label="教师姓名" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.user_name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师学号" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.number" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师学院" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.from_where" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师性别" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.gender" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师电话" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.tel" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师邮箱" :label-width="formLabelWidth">
+                            <el-input v-model="form_demo.email" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="form_demo.isshow = false">取 消</el-button>
+                        <el-button type="primary" @click="updateStu(form_demo)">确 定</el-button>
+                    </div>
+                </el-dialog>
+                <el-dialog title="教师详情" :visible.sync="form_demo.isshowlock" append-to-body>
+                    <el-form :model="form">
+                        <el-form-item class="form-info" label="教师姓名" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.user_name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师学号" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.number" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师班级" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.from_where" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师性别" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.gender" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师电话" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.tel" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="教师邮箱" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form_demo.email" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="form_demo.isshowlock = false">取 消</el-button>
+                        <el-button type="primary" @click="form_demo.isshowlock = false">确 定</el-button>
+                    </div>
+                </el-dialog>
                 <div class="block">
                     <el-pagination layout="prev, pager, next" :total="50">
                     </el-pagination>
@@ -100,49 +127,162 @@
   
 <script>
 export default {
+    inject: ['reload'],
     data() {
-        const item = {
-            name: '肖海蓉',
-            class: '计算机2101',
-            studentNumber: '2109124027'
+        const demo = {
+            user_name: '郑梓桐',
+            from: '计算机2101',
+            number: '2109124027',
+            gender: '男',
+            email: '3151128964@qq.com',
+            tel: '15220267226',
+            delivery: false,
+            type: [],
+            resource: '',
+            desc: '',
+            dialogFormVisibleUpdate: false,
         };
         return {
-            tableData: Array(9).fill(item),
+            restaurants: [],
+            state: '',
+            tableData: [],
             dialogFormVisible: false,
-            dialogFormVisibleInsert: false,
+            dialogFormVisibleUpdate: false,
+            dialogFormVisibleBlock: false,
             form: {
-                user_name: '肖海蓉',
-                from: '数学与计算机科学学院',
+                user_name: '郑梓桐',
+                from_where: '计算机2101',
                 number: '2109124027',
-                gender: '女',
-                email: 'email-1123123',
-                tel: '12345678910',
+                gender: '男',
+                email: '3151128964@qq.com',
+                tel: '15220267226',
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
             },
-            formEmpty: {
-                user_name: '',
-                from: '',
-                number: '',
-                gender: '',
-                email: '',
-                tel: '',
+            form_demo: {
+                user_name: '郑梓桐',
+                from_where: '计算机2101',
+                number: '2109124027',
+                gender: '男',
+                email: '3151128964@qq.com',
+                tel: '15220267226',
+                delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
+            },
+            // 执行插入的表单
+            formEmpty: {
+                role:"2",
+                person: {
+                    password: '123456',
+                    avatar: 'https://localhost:8080',
+                    role: 2, //权限的信息，1学生，2老师，3管理
+                    user_name: '',
+                    from_where: '',
+                    number: '',
+                    gender: '',
+                    email: '',
+                    tel: '',
+                    isshow: false,
+                    isshowlock: false
+                }
             },
             formLabelWidth: '120px'
         }
     },
     created() {
-        //封装请求的demo
-        // this.$axios.get("/ping").then(response => {
-        //     console.log(response);
-        // })
+        this.$axios.get("/querystudents?token=asdasda&role=2").then(response => {
+            console.log(response);
+            if (response.data.code == 200) {
+                this.tableData = response.data.students
+            }
+            console.log(this.tableData);
+        })
     },
     methods: {
+        open1() {
+            this.$notify({
+                title: '成功',
+                message: '添加教师成功',
+                type: 'success'
+            });
+        }, open4() {
+            this.$notify.error({
+                title: '错误',
+                message: '添加老师失败'
+            });
+        },
+        clearPersonProperties(person) {
+            for (let prop in person) {
+                if (person.hasOwnProperty(prop)) {
+                    person[prop] = '';
+                }
+            }
+        },
+        openupdatesuccess() {
+            this.$notify({
+                title: '成功',
+                message: '修改教师成功',
+                type: 'success'
+            });
+        },
+        openupdatewarn() {
+            this.$notify.error({
+                title: '错误',
+                message: '修改教师错误'
+            });
+        },
+        // 修改学生的信息，upload现在的对象
+        updateStu(e) {
+            e.isshow = false
+            this.form_demo = e
+            console.log(e);
+            const params = {
+                token: "teacherdemo",
+                person: e
+            }
+            let that = this
+            this.$axios.post("/person/update", params).then(response => {
+                console.log(response);
+                if (response.data.code == 200) {
+                    that.openupdatesuccess()
+                } else {
+                    that.openupdatewarn()
+                }
+            })
+        },
+        InsertStu() {
+            this.dialogFormVisible = false
+            //发送插入请求
+            const timestamp = new Date().getTime();
+            const lastTenDigits = ('0000000000' + timestamp).slice(-10);
+            const stringLastTenDigits = lastTenDigits.toString();
+            this.formEmpty.person.number = stringLastTenDigits
+            let that = this
+            this.$axios.post("/person/add", this.formEmpty).then(response => {
+                console.log(response);
+                if (response.data.code == 200) {
+                    that.tableData.push(that.formEmpty.person)
+                    that.open1()
+                } else {
+                    that.open4()
+                }
+            })
+
+        },
+        demo(e) {
+            e.isshow = true
+            this.form_demo = e
+            console.log(e);
+        },
+        demo2(e) {
+            e.isshowlock = true
+            this.form_demo = e
+            console.log(e);
+        },
         toStuCore() {
             console.log("点击到了");
             this.$router.push('/studendscore')
@@ -216,15 +356,35 @@ export default {
         handleIconClick(ev) {
             console.log(ev);
         }
-
     },
     mounted() {
         this.restaurants = this.loadAll();
     }
-}
+};
 </script>
   
 <style>
+.my-autocomplete {
+    li {
+        line-height: normal;
+        padding: 7px;
+
+        .name {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .addr {
+            font-size: 12px;
+            color: #b4b4b4;
+        }
+
+        .highlighted .addr {
+            color: #ddd;
+        }
+    }
+}
+
 .block {
     display: flex;
     flex-direction: row;
@@ -254,8 +414,42 @@ export default {
 }
 
 .el-main {
-    height: calc(100vh-95px);
+    height: calc(100vh-120px);
     overflow: visible;
+}
+
+.el-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.el-col {
+    border-radius: 4px;
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
 }
 </style>
   

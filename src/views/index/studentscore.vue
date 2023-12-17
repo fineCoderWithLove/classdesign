@@ -22,11 +22,8 @@
                     <el-form-item class="form-info" label="学生姓名" :label-width="formLabelWidth">
                         <el-input v-model="formEmpty.person.user_name" autocomplete="off"></el-input>
                     </el-form-item>
-                    <!-- <el-form-item class="form-info" label="学生学号" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.person.number" autocomplete="off"></el-input>
-                    </el-form-item> -->
                     <el-form-item class="form-info" label="学生班级" :label-width="formLabelWidth">
-                        <el-input v-model="formEmpty.person.from" autocomplete="off"></el-input>
+                        <el-input v-model="formEmpty.person.from_where" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item class="form-info" label="学生性别" :label-width="formLabelWidth">
                         <el-input v-model="formEmpty.person.gender" autocomplete="off"></el-input>
@@ -90,7 +87,7 @@
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="form_demo.isshow = false">取 消</el-button>
-                        <el-button type="primary" @click="form_demo.isshow = false">确 定</el-button>
+                        <el-button type="primary" @click="updateStu(form_demo)">确 定</el-button>
                     </div>
                 </el-dialog>
                 <el-dialog title="学生详情" :visible.sync="form_demo.isshowlock" append-to-body>
@@ -178,6 +175,7 @@ export default {
             },
             // 执行插入的表单
             formEmpty: {
+                role:"1",
                 person: {
                     password: '123456',
                     avatar: 'https://localhost:8080',
@@ -196,11 +194,8 @@ export default {
         }
     },
     created() {
-        //封装请求的demo
-        // this.$axios.get("/ping").then(response => {
-        //     console.log(response);
-        // })
-        this.$axios.get("/querystudents").then(response => {
+
+        this.$axios.get("/querystudents?token=asdasd&role=1").then(response => {
             console.log(response);
             if (response.data.code == 200) {
                 this.tableData = response.data.students
@@ -228,6 +223,38 @@ export default {
                 }
             }
         },
+        openupdatesuccess() {
+            this.$notify({
+                title: '成功',
+                message: '修改学生成功',
+                type: 'success'
+            });
+        },
+        openupdatewarn() {
+            this.$notify.error({
+                title: '错误',
+                message: '修改学生错误'
+            });
+        },
+        // 修改学生的信息，upload现在的对象
+        updateStu(e) {
+            e.isshow = false
+            this.form_demo = e
+            console.log(e);
+            const params = {
+                token: "teacherdemo",
+                person: e
+            }
+            let that = this
+            this.$axios.post("/person/update", params).then(response => {
+                console.log(response);
+                if (response.data.code == 200) {
+                    that.openupdatesuccess()
+                } else {
+                    that.openupdatewarn()
+                }
+            })
+        },
         InsertStu() {
             this.dialogFormVisible = false
             //发送插入请求
@@ -236,6 +263,7 @@ export default {
             const stringLastTenDigits = lastTenDigits.toString();
             this.formEmpty.person.number = stringLastTenDigits
             let that = this
+            console.log(this.formEmpty);
             this.$axios.post("/person/add", this.formEmpty).then(response => {
                 console.log(response);
                 if (response.data.code == 200) {
