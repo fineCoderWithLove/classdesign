@@ -102,24 +102,25 @@
                                         <el-button type="primary" @click="updateStu(form_demo)">确 定</el-button>
                                     </div>
                                 </el-dialog>
+
                                 <el-dialog title="评分详情" :visible.sync="form.isPassed" append-to-body>
                                     <el-form :model="form">
                                         <el-form-item class="form-info" label="平时成绩" :label-width="formLabelWidth">
-                                            <el-input  v-model="form.course_normal"
-                                                autocomplete="off"></el-input>
+                                            <el-input v-model="form.course_normal" autocomplete="off"></el-input>
                                         </el-form-item>
                                         <el-form-item class="form-info" label="考试成绩" :label-width="formLabelWidth">
                                             <el-input :disabled="true" v-model="form.course_test"
                                                 autocomplete="off"></el-input>
                                         </el-form-item>
                                         <el-form-item class="form-info" label="总评" :label-width="formLabelWidth">
-                                            <el-input :disabled="true" v-model="form.course_normal*0.4+form.course_test*0.6"
+                                            <el-input :disabled="true"
+                                                v-model="form.course_normal * 0.4 + form.course_test * 0.6 + ''"
                                                 autocomplete="off"></el-input>
                                         </el-form-item>
                                     </el-form>
                                     <div slot="footer" class="dialog-footer">
                                         <el-button @click="form.isPassed = false">取 消</el-button>
-                                        <el-button type="primary" @click="form.isPassed = false">确 定</el-button>
+                                        <el-button type="primary" @click="uploadScore(form)">确 定</el-button>
                                     </div>
                                 </el-dialog>
                                 <div class="block">
@@ -203,17 +204,40 @@ export default {
         this.getTechCourse()
     },
     methods: {
+        //根据userid或者number修改学生成绩
+        uploadScore(e) {
+            e.isPassed = false
+            this.form = e
+            console.log(e);
+            console.log("更新成绩的参数");
+            //将e进行更新
+            const params = {
+                token: "asdasdas",
+                rateItem: e
+            }
+            let that = this
+            this.$axios.post('/tech/score', params).then((result) => {
+                console.log(result);
+                if (result.data.code == 200) {
+                    that.updatesuccess()
+                } else {
+                    that.updatefail()
+                }
+            }).catch((err) => {
+
+            });
+        },
         //此处需要查询学生的详情信息
         updateStu(e) {
             e.isshow = false
             this.form_demo = e
-            console.log(e);
+
         },
-        //根据userid或者number加载.
         demo(e) {
             e.isshow = true
             this.form_demo = e
             console.log(e);
+            console.log("调用了demo");
         },
         demo2(e) {
             e.isshowlock = true
@@ -226,23 +250,28 @@ export default {
             this.form = e
 
         },
-        open1() {
+        updatesuccess() {
             this.$notify({
                 title: '成功',
-                message: '添加学生成功',
+                message: '更新学生成功',
                 type: 'success'
             });
-        }, open4() {
+        }, updatefail() {
             this.$notify.error({
                 title: '错误',
-                message: '这是一条错误的提示消息'
+                message: '网络错误'
             });
         },
         handleNodeClick(data) {
             console.log("准备给data赋值");
             console.log(data);
             let that = this
-            this.$axios.get('/tech/classstu?from_where=' + data.label).then((result) => {
+            //TODO 携带参数上传，登录时候返回用户信息取
+            /*
+                1.登录时候返回用户信息（user_id）
+                2.跳转路由时候获取路由参数(course_id)
+            */
+            this.$axios.get('/tech/classstu?from_where=' + data.label+"&course_id="+this.courseId+"&user_id="+this.userId).then((result) => {
                 console.log(result);
                 that.tableData = result.data.rateItem.map((item) => {
                     return {
@@ -279,8 +308,6 @@ export default {
             this.$axios.get('/tech/queryclass?courseId=' + e).then((result) => {
                 console.log(result);
                 that.classArray = result.data.from_where;
-
-                // Convert classArray to the desired format
                 that.data[0].children = that.classArray.map((item) => {
                     return {
                         label: item,
