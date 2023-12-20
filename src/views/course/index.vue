@@ -1,6 +1,5 @@
 <template>
     <div id="app" class="container">
-        <div style="width:200px"> <el-tree highlight-current="true" :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree></div>
         <div>
             <el-main>
                 <router-view>
@@ -18,22 +17,37 @@ export default {
         return {
             data: [{
                 label: '班级信息',
-                children: [{
-                    label: '计算机2101班',
-                }, {
-                    label: '计算机2102班',
-                }]
+                children: [
+                    {
+                        label: '计算机2101班',
+                    },
+                    {
+                        label: '计算机2102班',
+                    }
+                ]
             }],
             defaultProps: {
                 children: 'children',
                 label: 'label'
-            }
+            },
+            courseId: ""
         };
     },
     components: {
         EcharsBarBgc
     },
+    created() {
+        this.courseId = this.$route.query.course_id;
+        this.getCourseClass()
+    },
     methods: {
+        getCourseClass() {
+            this.$axios.get('/tech/queryclass?courseId=' + this.courseId).then((result) => {
+                console.log(result);
+            }).catch((err) => {
+
+            });
+        },
         handleNodeClick(data) {
             console.log(data);
             this.$router.push("/Course/ClassDetails")

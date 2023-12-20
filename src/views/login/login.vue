@@ -165,10 +165,12 @@ export default {
           //用户id放入浏览器缓存中
           localStorage.setItem("userId", this.loginForm.id);
           //需要页面传参如果code==200 TODO 页面参数为200跳转做提示，
+          localStorage.setItem("role", response.data.user.role);
           this.$router.push({
             path: '/index',
             query: {
-              code: '200'
+              code: '200',
+              role:response.data.user.role
             }
           });
         }

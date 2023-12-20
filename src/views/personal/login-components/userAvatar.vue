@@ -42,7 +42,7 @@
   export default {
     data() {
       return {
-        imageUrl: ''
+        imageUrl: 'https://th.bing.com/th/id/OIP.p0Aniazzipbw_JKK4Typ4gHaEo?w=305&h=190&c=7&r=0&o=5&dpr=1.1&pid=1.7'
       };
     },
     methods: {

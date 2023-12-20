@@ -11,11 +11,11 @@
               <userAvatar />
             </div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户姓名 <span>郑梓桐</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>用户姓名 <span>{{userInfo.user_name}}</span></div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>学号/工号 <span>2109124027</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>学号/工号 <span>{{userInfo.number}}</span></div>
             <el-divider></el-divider>
-            <div class="details-item"><i class="el-icon-platform-eleme"></i>学院/班级 <span>计算机2101</span></div>
+            <div class="details-item"><i class="el-icon-platform-eleme"></i>学院/班级 <span>{{userInfo.from_where}}</span></div>
             <el-divider></el-divider>
             <div class="details-item"><i class="el-icon-platform-eleme"></i>单位 <span>陕西理工大学</span></div>
             <el-divider></el-divider>
@@ -29,7 +29,7 @@
           </div>
           <el-tabs v-model="activeTab">
             <el-tab-pane label="基本资料" name="userinfo">
-              <userInfo :user="user" />
+              <userInfo :user="userInfo" />
             </el-tab-pane>
             <el-tab-pane label="修改密码" name="resetPwd">
               <resetPwd />
@@ -54,18 +54,38 @@ export default {
       user: {},
       roleGroup: {},
       postGroup: {},
-      activeTab: "userinfo"
+      activeTab: "userinfo",
+      userId: "",
+      userInfo: {}
     };
   },
   created() {
+    //加载个人信息
+    var storedUserId = localStorage.getItem("userId");
+
+    // 使用获取到的用户ID进行操作  
+    console.log("User ID from cache:", storedUserId);
+    this.userId = storedUserId
     this.getUser();
   },
   methods: {
+    open4() {
+      this.$notify.error({
+        title: '错误',
+        message: '网络故障'
+      });
+    },
     getUser() {
-      getUserProfile().then(response => {
-        this.user = response.data;
-        this.roleGroup = response.roleGroup;
-        this.postGroup = response.postGroup;
+      let that = this
+      this.$axios.get("/person/details?userId=" + this.userId).then((result) => {
+        console.log(result); 
+        if (result.data.code == 200) {
+          that.userInfo = result.data.user
+        } else {
+          that.open4()
+        }
+      }).catch((err) => {
+
       });
     }
   }
@@ -93,4 +113,5 @@ export default {
 
 .info-cord {
   width: 820px;
-}</style>
+}
+</style>

@@ -129,19 +129,6 @@
 export default {
     inject: ['reload'],
     data() {
-        const demo = {
-            user_name: '郑梓桐',
-            from: '计算机2101',
-            number: '2109124027',
-            gender: '男',
-            email: '3151128964@qq.com',
-            tel: '15220267226',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: '',
-            dialogFormVisibleUpdate: false,
-        };
         return {
             restaurants: [],
             state: '',
@@ -150,16 +137,14 @@ export default {
             dialogFormVisibleUpdate: false,
             dialogFormVisibleBlock: false,
             form: {
-                user_name: '郑梓桐',
-                from_where: '计算机2101',
-                number: '2109124027',
-                gender: '男',
-                email: '3151128964@qq.com',
-                tel: '15220267226',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
+                course_normal: "",
+                course_test: "",
+                course_total_score: "",
+                course_name:"",
+                user_id:"",
+                course_id:"",
+                user_name:"",
+                isPassed:false
             },
             form_demo: {
                 user_name: '郑梓桐',

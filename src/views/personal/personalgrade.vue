@@ -4,38 +4,40 @@
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-main>
                 <el-table :data="tableData">
-                    <el-table-column prop="name" label="课程编号" width="170">
+                    <el-table-column prop="course_id" label="课程编号" width="170">
                     </el-table-column>
                     <el-table-column prop="course_name" label="课程名称" width="170">
                     </el-table-column>
-                    <el-table-column prop="class" label="学生姓名" width="170">
+                    <el-table-column prop="user_name" label="教师姓名" width="170">
                     </el-table-column>
-                    <el-table-column prop="studentNumber" label="成绩" width="170">
+                    <el-table-column prop="course_total_score" label="成绩" width="170">
                     </el-table-column>
-                    <el-table-column prop="classType" label="课程类别" width="170">
+                    <el-table-column prop="course_type" label="课程类别" width="170">
                     </el-table-column>
                     <el-table-column prop="classType" label="评分" width="170">
-                        <el-button type="primary" plain @click="dialogFormVisibleBlock = true">评分详情</el-button>
-                        <el-dialog title="评分详情" :visible.sync="dialogFormVisibleBlock" append-to-body>
-                            <el-form :model="form">
-                                <el-form-item class="form-info" label="平时成绩" :label-width="formLabelWidth">
-                                    <el-input :disabled="true" v-model="form.course_normal" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item class="form-info" label="考试成绩" :label-width="formLabelWidth">
-                                    <el-input :disabled="true" v-model="form.course_test" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item class="form-info" label="总评" :label-width="formLabelWidth">
-                                    <el-input :disabled="true" v-model="form.course_test * 0.4 + form.course_normal * 0.6"
-                                        autocomplete="off"></el-input>
-                                </el-form-item>
-                            </el-form>
-                            <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisibleBlock = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogFormVisibleBlock = false">确 定</el-button>
-                            </div>
-                        </el-dialog>
+                        <template slot-scope="scope">
+                            <el-button type="primary" plain @click="demo(scope.row)">评分详情</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
+                <el-dialog title="评分详情" :visible.sync="form.isPassed" append-to-body>
+                    <el-form :model="form">
+                        <el-form-item class="form-info" label="平时成绩" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form.course_normal" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="考试成绩" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form.course_test" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item class="form-info" label="总评" :label-width="formLabelWidth">
+                            <el-input :disabled="true" v-model="form.course_total_score"
+                                autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="form.isPassed = false">取 消</el-button>
+                        <el-button type="primary" @click="form.isPassed = false">确 定</el-button>
+                    </div>
+                </el-dialog>
                 <div class="block">
                     <el-pagination layout="prev, pager, next" :total="50">
                     </el-pagination>
@@ -48,38 +50,57 @@
 <script>
 export default {
     data() {
-        const item = {
-            name: '1',
-            course_name: '软件工程',
-            class: '曹阳',
-            studentNumber: '93',
-            classType: "通识选修课",
-            normalScore: "93",
-            TestScore: "20",
-            total: "99"
-        };
         return {
-            tableData: Array(10).fill(item),
+            tableData: [],
             dialogFormVisibleBlock: false,
             form: {
-                course_normal: 60,
-                course_test: 90,
-                course_total_score: 0,
+                course_normal: "",
+                course_test: "",
+                course_total_score: "",
+                course_name:"",
+                user_id:"",
+                course_id:"",
+                user_name:"",
+                isPassed:false
             },
-            formLabelWidth: '120px'
+            formLabelWidth: '120px',
+            userId: ""
         }
     },
     computed: {
 
     },
     created() {
-        this.form.course_total_score = this.form.course_normal * 0.6 + this.form.course_test * 0.4
+        var storedUserId = localStorage.getItem("userId");
+
+        // 使用获取到的用户ID进行操作  
+        console.log("User ID from cache:", storedUserId);
+        this.userId = storedUserId
+        this.getMyScoreInfo()
     },
     methods: {
-        toStuCore() {
-            console.log("点击到了");
-            this.$router.push('/studendscore')
-        }
+        demo(e) {
+            console.log(e);
+            e.isPassed=true
+            this.form = e
+            
+        },
+        getMyScoreInfo() {
+            let that = this;
+            this.$axios.get("/querymyscore?number=" + this.userId).then((result) => {
+                console.log(result);
+                if (result.data.code == 200) {
+                    const rateItems = result.data.rateItems;
+                    const updatedRateItems = rateItems.map(item => {
+                        return { ...item, course_type: "学科必修课", isPassed: false };
+                    });
+                    that.tableData = updatedRateItems;
+                }
+            }).catch((err) => {
+                // 处理错误
+            });
+        },
+        // 其他方法...
     }
 };
 </script>
